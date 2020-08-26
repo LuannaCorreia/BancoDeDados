@@ -1,0 +1,140 @@
+--DDL
+
+CREATE DATABASE EduX;
+
+USE EduX;
+
+--DANIEL
+
+CREATE TABLE Professor(
+	IdProfessor INT PRIMARY KEY IDENTITY,
+	NomeCompleto VARCHAR(50) NOT NULL,
+	Email VARCHAR(100) NOT NULL UNIQUE,
+	Senha VARCHAR(150) NOT NULL,
+	--FK
+	IdInstituicaoEnsino INT FOREIGN KEY REFERENCES InstituicaoEnsino(IdInstituicaoEnsino) NOT NULL
+);
+
+CREATE TABLE AlunoTurma(
+	IdAlunoTurma INT PRIMARY KEY IDENTITY,
+	--FKs
+	IdAluno INT FOREIGN KEY REFERENCES Aluno(IdAluno) NOT NULL,
+	IdTurma INT FOREIGN KEY REFERENCES Turma(IdTurma) NOT NULL
+);
+
+CREATE TABLE AlunoObjetivo(
+	IdAlunoObjetivo INT PRIMARY KEY IDENTITY,
+	DataConclusao DATETIME DEFAULT NULL,
+	NotaAtribuida DECIMAL(4,2) DEFAULT 0,
+	--FK
+	IdAluno INT FOREIGN KEY REFERENCES Aluno(IdAluno) NOT NULL,
+	IdObjetivo INT FOREIGN KEY REFERENCES Objetivo(IdObjetivo) NOT NULL
+);
+
+
+
+
+
+--MURILO
+
+CREATE TABLE Aluno(
+	IdAluno INT PRIMARY KEY IDENTITY NOT NULL,
+	NomeCompleto VARCHAR(50) NOT NULL,
+	Email VARCHAR(100) UNIQUE NOT NULL,
+	Senha VARCHAR(150) NOT NULL,
+	Ra VARCHAR(30) UNIQUE NOT NULL,
+	QtdPontos DECIMAL(4,2)
+);
+
+CREATE TABLE Post(
+	IdPost INT PRIMARY KEY IDENTITY NOT NULL,
+	Texto VARCHAR(500),
+	Imagem  VARCHAR(200),
+	QtdCurtida INT NOT NULL,
+	--FKs
+	IdProfessor INT FOREIGN KEY REFERENCES Professor(IdProfessor),
+	IdAluno INT FOREIGN KEY REFERENCES Aluno(IdAluno),
+);
+
+
+
+
+
+--EDUARDO
+
+CREATE TABLE InstituicaoEnsino(
+	IdInstituicaoEnsino INT PRIMARY KEY IDENTITY NOT NULL,
+	Nome		VARCHAR (50) NOT NULL,
+	Logradouro	VARCHAR (100) NOT NULL,
+	Numero		VARCHAR (10) NOT NULL UNIQUE,
+	Complemento VARCHAR (20),
+	Bairro		VARCHAR (50) NOT NULL,
+	Cidade		VARCHAR (50) NOT NULL,
+	UF			CHAR (2) NOT NULL,
+	Telefone	VARCHAR(20) NOT NULL,
+	CEP			VARCHAR(15) NOT NULL,
+);
+
+CREATE TABLE Categoria(
+	IdCategoria INT PRIMARY KEY IDENTITY NOT NULL,
+	Tipo VARCHAR (10) NOT NULL UNIQUE,
+);
+
+CREATE TABLE Objetivo(
+	IdObjetivo INT PRIMARY KEY IDENTITY NOT NULL,
+	Titulo		VARCHAR (50) NOT NULL UNIQUE,
+	Descricao	VARCHAR (255) NOT NULL UNIQUE,
+
+-- Adição de FK
+	IdCategoria	INT FOREIGN KEY REFERENCES Categoria(IdCategoria)
+);
+
+
+
+
+
+-- LUANA
+
+CREATE TABLE Curso (
+	IdCurso INT PRIMARY KEY IDENTITY NOT NULL,
+	Nome VARCHAR(50) NOT NULL UNIQUE,
+	Descricao VARCHAR(255) NOT NULL,
+	AreaAtuacao VARCHAR(50) NOT NULL,
+	CargaHoraria DECIMAL(6,2) NOT NULL
+);
+
+-- EDUX - Turma
+
+CREATE TABLE Turma (
+	IdTurma INT PRIMARY KEY IDENTITY,
+	Nome VARCHAR(50) NOT NULL UNIQUE,
+	TotalVagas INT NOT NULL,
+	QuantidadeAlunos INT NOT NULL,
+
+	-- Colocando as chaves estrangeiras (FK)
+	IdCurso INT FOREIGN KEY REFERENCES Curso(IdCurso)
+);
+
+
+
+
+
+-- TIAGO
+
+CREATE TABLE Dica (
+	/*PK*/
+	IdDica INT PRIMARY KEY IDENTITY NOT NULL,
+	/*Atributos*/
+	Titulo VARCHAR(50) NOT NULL,
+	Descricao VARCHAR(255) NOT NULL,
+	/*FKs*/
+	IdProfessor INT FOREIGN KEY REFERENCES Professor(idProfessor) NOT NULL,
+);
+
+CREATE TABLE ProfessorTurma (
+	/*PK*/
+	IdProfessorTurma INT PRIMARY KEY IDENTITY NOT NULL,
+	/*FKs*/
+	IdProfessor INT FOREIGN KEY REFERENCES Professor(IdProfessor) NOT NULL,
+	IdTurma INT FOREIGN KEY REFERENCES Turma(IdTurma) NOT NULL,
+);
