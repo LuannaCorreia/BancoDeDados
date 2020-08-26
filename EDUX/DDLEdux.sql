@@ -32,9 +32,6 @@ CREATE TABLE AlunoObjetivo(
 );
 
 
-
-
-
 --MURILO
 
 CREATE TABLE Aluno(
@@ -55,9 +52,6 @@ CREATE TABLE Post(
 	IdProfessor INT FOREIGN KEY REFERENCES Professor(IdProfessor),
 	IdAluno INT FOREIGN KEY REFERENCES Aluno(IdAluno),
 );
-
-
-
 
 
 --EDUARDO
@@ -90,10 +84,7 @@ CREATE TABLE Objetivo(
 );
 
 
-
-
-
--- LUANA
+-- LUANNA
 
 CREATE TABLE Curso (
 	IdCurso INT PRIMARY KEY IDENTITY NOT NULL,
@@ -116,10 +107,7 @@ CREATE TABLE Turma (
 );
 
 
-
-
-
--- TIAGO
+-- THIAGO
 
 CREATE TABLE Dica (
 	/*PK*/
